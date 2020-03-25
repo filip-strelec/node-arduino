@@ -15,7 +15,7 @@ const server = http.createServer ((req,res) => {
          if (err) { return console.log(err); }
        
           json=resReq.body;
-          console.log(res.body);
+         //  console.log(res.body);
 
        
 
@@ -36,7 +36,7 @@ res.end(JSON.stringify(json));
        
           json=resReq.body;
        
-       console.log(res.body);
+      //  console.log(res.body);
        
 
 res.writeHead(200,{"Content-Type": "application/json"})
@@ -55,7 +55,7 @@ res.end(JSON.stringify(json));
          if (err) { return console.log(err); }
        
           json=resReq.body;
-          console.log(res.body);
+         //  console.log(res.body);
          
 
 res.writeHead(200,{"Content-Type": "application/json"})
