@@ -8,6 +8,8 @@ const server = http.createServer ((req,res) => {
 
    console.log(req.rawHeaders[19], "vazno")
 
+   if(req){
+
    if (req.rawHeaders[19].includes("heat")){
 
 
@@ -49,6 +51,7 @@ const server = http.createServer ((req,res) => {
 
 
     }
+   }
 
 console.log("access!");
 
