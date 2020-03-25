@@ -15,7 +15,8 @@ const server = http.createServer ((req,res) => {
          if (err) { return console.log(err); }
        
           json=res.body;
-       
+          console.log(res.body);
+
        
        
        });
@@ -29,7 +30,7 @@ const server = http.createServer ((req,res) => {
        
           json=res.body;
        
-       
+       console.log(res.body);
        
        });
 
@@ -42,7 +43,8 @@ const server = http.createServer ((req,res) => {
          if (err) { return console.log(err); }
        
           json=res.body;
-       
+          console.log(res.body);
+
        
        
        });
@@ -57,12 +59,13 @@ console.log("access!");
 
 res.writeHead(200,{"Content-Type": "application/json"})
 res.writeHead(200,{"Access-Control-Allow-Origin": "*"})
+
 res.end(JSON.stringify(json));
 
 
 });
 
-server.listen(1337, '192.168.0.28', ()=>{
+server.listen(1337, 'localhost', ()=>{
 
 console.log("listeningg");
 
