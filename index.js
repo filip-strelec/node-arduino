@@ -6,7 +6,7 @@ let json= "";
 
 const server = http.createServer ((req,res) => {
 
-   console.log(req.url, "vazno")
+   // console.log(req.url, "vazno")
 
    if (req.url.includes("heat")){
 
@@ -14,7 +14,7 @@ const server = http.createServer ((req,res) => {
       request('http://192.168.0.15/heat', { json: true }, (err, res, body) => {
          if (err) { return console.log(err); }
        
-          json=body;
+          json=res.body;
        
        
        
@@ -27,7 +27,7 @@ const server = http.createServer ((req,res) => {
       request('http://192.168.0.15/led1', { json: true }, (err, res, body) => {
          if (err) { return console.log(err); }
        
-          json=body;
+          json=res.body;
        
        
        
@@ -41,7 +41,7 @@ const server = http.createServer ((req,res) => {
       request('http://192.168.0.15/', { json: true }, (err, res, body) => {
          if (err) { return console.log(err); }
        
-          json=body;
+          json=res.body;
        
        
        
@@ -62,7 +62,7 @@ res.end(JSON.stringify(json));
 
 });
 
-server.listen(1337, '192.168.0.28', ()=>{
+server.listen(1337, 'localhost', ()=>{
 
 console.log("listeningg");
 
