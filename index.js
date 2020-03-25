@@ -26,7 +26,7 @@ res.end(JSON.stringify(json));
 
 });
 
-server.listen(1337, '127.0.0.1', ()=>{
+server.listen(1337, '192.168.0.28', ()=>{
 
 console.log("listening");
 
