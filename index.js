@@ -11,13 +11,19 @@ const server = http.createServer ((req,res) => {
    if (req.url.includes("heat")){
 
 
-      request('http://192.168.0.15/heat', { json: true }, (err, res, body) => {
+      request('http://192.168.0.15/heat', { json: true }, (err, resReq, body) => {
          if (err) { return console.log(err); }
        
-          json=res.body;
+          json=resReq.body;
           console.log(res.body);
 
        
+
+res.writeHead(200,{"Content-Type": "application/json"})
+res.writeHead(200,{"Access-Control-Allow-Origin": "*"})
+
+res.end(JSON.stringify(json));
+
        
        });
        
@@ -25,13 +31,19 @@ const server = http.createServer ((req,res) => {
 
    else if (req.url.includes("led1")){
 
-      request('http://192.168.0.15/led1', { json: true }, (err, res, body) => {
+      request('http://192.168.0.15/led1', { json: true }, (err, resReq, body) => {
          if (err) { return console.log(err); }
        
-          json=res.body;
+          json=resReq.body;
        
        console.log(res.body);
        
+
+res.writeHead(200,{"Content-Type": "application/json"})
+res.writeHead(200,{"Access-Control-Allow-Origin": "*"})
+
+res.end(JSON.stringify(json));
+
        });
 
    }
@@ -39,14 +51,18 @@ const server = http.createServer ((req,res) => {
 
 
    else{
-      request('http://192.168.0.15/', { json: true }, (err, res, body) => {
+      request ('http://192.168.0.15/', { json: true }, (err, resReq, body) => {
          if (err) { return console.log(err); }
        
-          json=res.body;
+          json=resReq.body;
           console.log(res.body);
+         
 
-       
-       
+res.writeHead(200,{"Content-Type": "application/json"})
+res.writeHead(200,{"Access-Control-Allow-Origin": "*"})
+
+res.end(JSON.stringify(json));
+
        });
 
 
@@ -57,15 +73,9 @@ console.log("access!");
 
 
 
-res.writeHead(200,{"Content-Type": "application/json"})
-res.writeHead(200,{"Access-Control-Allow-Origin": "*"})
-
-res.end(JSON.stringify(json));
-
-
 });
 
-server.listen(1337, 'localhost', ()=>{
+server.listen(1337, '192.168.0.28', ()=>{
 
 console.log("listeningg");
 
