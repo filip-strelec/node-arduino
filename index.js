@@ -86,6 +86,25 @@ res.end(JSON.stringify(json));
 
    }
 
+   else if (req.url.includes("turnOff")){
+
+      request('http://192.168.0.15/turnOff', { json: true }, (err, resReq, body) => {
+         if (err) { return console.log(err); }
+       
+          json=resReq.body;
+       
+      //  console.log(res.body);
+       
+
+res.writeHead(200,{"Content-Type": "application/json"})
+res.writeHead(200,{"Access-Control-Allow-Origin": "*"})
+
+res.end(JSON.stringify(json));
+
+       });
+
+   }
+
 
 
    else{
