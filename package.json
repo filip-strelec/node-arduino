@@ -1,0 +1,23 @@
+{
+  "name": "arduino",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/filip-strelec/node-arduino.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/filip-strelec/node-arduino/issues"
+  },
+  "homepage": "https://github.com/filip-strelec/node-arduino#readme",
+  "dependencies": {
+    "request": "^2.88.2",
+    "wol": "^1.0.7"
+  }
+}
