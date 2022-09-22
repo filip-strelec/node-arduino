@@ -127,9 +127,49 @@ el ? res.end("TURNED ON"): res.end("FAILED")
    }
 
 
+
+
+
+else if (req.url.includes("refresh")){
+
+
+   if(json ===""){
+
+      request ('http://192.168.1.65/', { json: true }, (err, resReq, body) => {
+         if (err) { return console.log(err); }
+       
+          json=resReq.body;
+         //  console.log(res.body);
+         console.log("first time access");
+   
+   res.writeHead(200,{"Content-Type": "application/json"})
+   res.writeHead(200,{"Access-Control-Allow-Origin": "*"})
+   
+   res.end(JSON.stringify(json));
+   
+       });
+   
+   
+   }
+   
+   else {
+   
+      res.writeHead(200,{"Content-Type": "application/json"})
+   res.writeHead(200,{"Access-Control-Allow-Origin": "*"})
+   
+   res.end(JSON.stringify(json));
+   }
+
+
+
+
+}
+
+
+
    else{
 
-if(json ===""){
+
 
    request ('http://192.168.1.65/', { json: true }, (err, resReq, body) => {
       if (err) { return console.log(err); }
@@ -144,19 +184,6 @@ res.writeHead(200,{"Access-Control-Allow-Origin": "*"})
 res.end(JSON.stringify(json));
 
     });
-
-
-}
-
-else {
-
-   res.writeHead(200,{"Content-Type": "application/json"})
-res.writeHead(200,{"Access-Control-Allow-Origin": "*"})
-
-res.end(JSON.stringify(json));
-}
-
-
 
 
     }
