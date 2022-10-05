@@ -2,6 +2,11 @@ const fs = require ('fs');
 const http = require('http');
 const request = require('request');
 const wol = require('wol');
+const url = require('url');
+const { time } = require('console');
+let timeout = 0;
+let timeoutDate;
+let heatingTimeout;
 
 let json= "";
 
@@ -9,6 +14,8 @@ const server = http.createServer ((req,res) => {
 
    // console.log(req.url, "vazno")
 
+   const params = url.parse(req.url, true).query;
+   timeout = Number.parseInt(params.timeout)
    if (req.url.includes("heat")){
 
 
@@ -20,6 +27,32 @@ const server = http.createServer ((req,res) => {
 
        
 
+
+if (timeout && timeout !=0 && !heatingTimeout && json.heat === "On" ){
+   timeoutDate = new Date();
+   heatingTimeout = setTimeout(() => {
+      
+      request('http://192.168.1.65/heat', { json: true }, (err, resReq, body) => {
+         if (err) { return console.log(err); }
+       
+          json=resReq.body;
+       
+      //  console.log(res.body);
+
+       });
+
+       heatingTimeout = undefined;
+       timeoutDate = undefined;
+   }, timeout*1000);
+}
+else {
+if (heatingTimeout){
+   clearTimeout(heatingTimeout)
+   heatingTimeout = undefined;
+   timeoutDate = undefined;
+}
+}
+timeoutDate ? (json.timeoutDate = timeoutDate) : (json.timeoutDate = false);
 res.writeHead(200,{"Content-Type": "application/json"})
 res.writeHead(200,{"Access-Control-Allow-Origin": "*"})
 
@@ -42,7 +75,7 @@ res.end(JSON.stringify(json));
 
 res.writeHead(200,{"Content-Type": "application/json"})
 res.writeHead(200,{"Access-Control-Allow-Origin": "*"})
-
+timeoutDate ? (json.timeoutDate = timeoutDate) : (json.timeoutDate = false);
 res.end(JSON.stringify(json));
 
        });
@@ -61,7 +94,7 @@ res.end(JSON.stringify(json));
 
 res.writeHead(200,{"Content-Type": "application/json"})
 res.writeHead(200,{"Access-Control-Allow-Origin": "*"})
-
+timeoutDate ? (json.timeoutDate = timeoutDate) : (json.timeoutDate = false);
 res.end(JSON.stringify(json));
 
        });
@@ -80,7 +113,8 @@ res.end(JSON.stringify(json));
 
 res.writeHead(200,{"Content-Type": "application/json"})
 res.writeHead(200,{"Access-Control-Allow-Origin": "*"})
-
+timeoutDate ? (json.timeoutDate = timeoutDate) : (json.timeoutDate = false);
+console.log(json, "FILIP FAJRUNT")
 res.end(JSON.stringify(json));
 
        });
@@ -99,7 +133,7 @@ res.end(JSON.stringify(json));
 
 res.writeHead(200,{"Content-Type": "application/json"})
 res.writeHead(200,{"Access-Control-Allow-Origin": "*"})
-
+timeoutDate ? (json.timeoutDate = timeoutDate) : (json.timeoutDate = false);
 res.end(JSON.stringify(json));
 
        });
@@ -144,7 +178,7 @@ else if (req.url.includes("refresh")){
    
    res.writeHead(200,{"Content-Type": "application/json"})
    res.writeHead(200,{"Access-Control-Allow-Origin": "*"})
-   
+   timeoutDate ? (json.timeoutDate = timeoutDate) : (json.timeoutDate = false);
    res.end(JSON.stringify(json));
    
        });
@@ -156,7 +190,7 @@ else if (req.url.includes("refresh")){
    
       res.writeHead(200,{"Content-Type": "application/json"})
    res.writeHead(200,{"Access-Control-Allow-Origin": "*"})
-   
+   timeoutDate ? (json.timeoutDate = timeoutDate) : (json.timeoutDate = false);
    res.end(JSON.stringify(json));
    }
 
@@ -180,6 +214,7 @@ else if (req.url.includes("refresh")){
 
 res.writeHead(200,{"Content-Type": "application/json"})
 res.writeHead(200,{"Access-Control-Allow-Origin": "*"})
+timeoutDate ? (json.timeoutDate = timeoutDate) : (json.timeoutDate = false);
 
 res.end(JSON.stringify(json));
 
@@ -196,7 +231,7 @@ console.log("access!");
 });
 
 //TODO stavi internal ip address od servera
-server.listen(1338, 'localhost', ()=>{
+server.listen(1338, '127.0.0.1', ()=>{
 
 console.log("listeningg");
 
