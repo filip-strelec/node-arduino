@@ -14,11 +14,11 @@ const server = http.createServer ((req,res) => {
 
    // console.log(req.url, "vazno")
 
-   const params = url.parse(req.url, true).query;
-   timeout = Number.parseInt(params.timeout)*60000 //in minutes
+  
    if (req.url.includes("heat")){
-
-
+      const params = url.parse(req.url, true).query;
+      timeout = Number.parseInt(params.timeout)*60000 //in minutes
+      console.log(params, "Filip Fajrunt");
       request('http://192.168.1.65/heat', { json: true }, (err, resReq, body) => {
          if (err) { return console.log(err); }
        
