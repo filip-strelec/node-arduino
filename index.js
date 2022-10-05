@@ -29,7 +29,7 @@ const server = http.createServer ((req,res) => {
 
 
 if (timeout && timeout !=0 && !heatingTimeout && json.heat === "On" ){
-   timeoutDate = new Date();
+   timeoutDate = new Date().getTime() + timeout;
    heatingTimeout = setTimeout(() => {
       
       request('http://192.168.1.65/heat', { json: true }, (err, resReq, body) => {
@@ -43,7 +43,7 @@ if (timeout && timeout !=0 && !heatingTimeout && json.heat === "On" ){
 
        heatingTimeout = undefined;
        timeoutDate = undefined;
-   }, timeout*1000);
+   }, timeout*60000);
 }
 else {
 if (heatingTimeout){
