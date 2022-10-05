@@ -15,7 +15,7 @@ const server = http.createServer ((req,res) => {
    // console.log(req.url, "vazno")
 
    const params = url.parse(req.url, true).query;
-   timeout = Number.parseInt(params.timeout)
+   timeout = Number.parseInt(params.timeout)*60000 //in minutes
    if (req.url.includes("heat")){
 
 
@@ -43,7 +43,7 @@ if (timeout && timeout !=0 && !heatingTimeout && json.heat === "On" ){
 
        heatingTimeout = undefined;
        timeoutDate = undefined;
-   }, timeout*60000);
+   }, timeout);
 }
 else {
 if (heatingTimeout){
