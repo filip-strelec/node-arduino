@@ -19,7 +19,7 @@ const server = http.createServer ((req,res) => {
       const params = url.parse(req.url, true).query;
       timeout = Number.parseInt(params.timeout)*60000 //in minutes
       console.log(params, "Filip Fajrunt");
-      request('http://192.168.1.65/heat', { json: true }, (err, resReq, body) => {
+      request('http://192.168.1.144/heat', { json: true }, (err, resReq, body) => {
          if (err) { return console.log(err); }
        
           json=resReq.body;
@@ -32,7 +32,7 @@ if (timeout && timeout !=0 && !heatingTimeout && json.heat === "On" ){
    timeoutDate = new Date().getTime() + timeout;
    heatingTimeout = setTimeout(() => {
       
-      request('http://192.168.1.65/heat', { json: true }, (err, resReq, body) => {
+      request('http://192.168.1.144/heat', { json: true }, (err, resReq, body) => {
          if (err) { return console.log(err); }
        
           json=resReq.body;
@@ -63,9 +63,32 @@ res.end(JSON.stringify(json));
        
    }
 
+
+
+   else if (req.url.includes("irsend")){
+      const urlRequest = req.url
+            request(`http://192.168.1.144${urlRequest}`, { json: true }, (err, resReq, body) => {
+               if (err) { return console.log(err); }
+             
+                json=resReq.body;
+             
+            //  console.log(res.body);
+             
+      
+      res.writeHead(200,{"Content-Type": "application/json"})
+      res.writeHead(200,{"Access-Control-Allow-Origin": "*"})
+      timeoutDate ? (json.timeoutDate = timeoutDate) : (json.timeoutDate = false);
+      res.end(JSON.stringify(json));
+      
+             });
+      
+         }
+
+
+
    else if (req.url.includes("led1")){
 
-      request('http://192.168.1.65/led1', { json: true }, (err, resReq, body) => {
+      request('http://192.168.1.144/led1', { json: true }, (err, resReq, body) => {
          if (err) { return console.log(err); }
        
           json=resReq.body;
@@ -84,7 +107,7 @@ res.end(JSON.stringify(json));
 
    else if (req.url.includes("led2")){
 
-      request('http://192.168.1.65/led2', { json: true }, (err, resReq, body) => {
+      request('http://192.168.1.144/led2', { json: true }, (err, resReq, body) => {
          if (err) { return console.log(err); }
        
           json=resReq.body;
@@ -103,7 +126,7 @@ res.end(JSON.stringify(json));
 
    else if (req.url.includes("led3")){
 
-      request('http://192.168.1.65/led3', { json: true }, (err, resReq, body) => {
+      request('http://192.168.1.144/led3', { json: true }, (err, resReq, body) => {
          if (err) { return console.log(err); }
        
           json=resReq.body;
@@ -123,7 +146,7 @@ res.end(JSON.stringify(json));
 
    else if (req.url.includes("turnoff")){
 
-      request('http://192.168.1.65/turnOff', { json: true }, (err, resReq, body) => {
+      request('http://192.168.1.144/turnOff', { json: true }, (err, resReq, body) => {
          if (err) { return console.log(err); }
        
           json=resReq.body;
@@ -169,7 +192,7 @@ else if (req.url.includes("refresh")){
 
    if(json ===""){
 
-      request ('http://192.168.1.65/', { json: true }, (err, resReq, body) => {
+      request ('http://192.168.1.144/', { json: true }, (err, resReq, body) => {
          if (err) { return console.log(err); }
        
           json=resReq.body;
@@ -205,7 +228,7 @@ else if (req.url.includes("refresh")){
 
 
 
-   request ('http://192.168.1.65/', { json: true }, (err, resReq, body) => {
+   request ('http://192.168.1.144/', { json: true }, (err, resReq, body) => {
       if (err) { return console.log(err); }
     
        json=resReq.body;
